@@ -1,11 +1,11 @@
 # -*- coding: UTF-8 -*-
-'''
+"""
     magento.catalog
 
     Product Catalog API for magento
 
     :license: BSD, see LICENSE for more details
-'''
+"""
 
 import warnings
 
@@ -26,7 +26,16 @@ class Category(API):
         :return: int
         """
         args = [store_view] if store_view else []
-        return int(self.call('catalog_category.currentStore', args))
+
+        if self.version >= '2':
+
+            method_name = 'catalogCategoryCurrentStore'
+
+        else:
+
+            method_name = 'catalog_category.currentStore'
+
+        return int(self.call(method_name, args))
 
     def tree(self, parent_id=None, store_view=None):
         """
@@ -36,7 +45,16 @@ class Category(API):
         :param store_view: Store View (optional)
         :return: dictionary of values
         """
-        return self.call('catalog_category.tree', [parent_id, store_view])
+
+        if self.version >= '2':
+
+            method_name = 'catalogCategoryTree'
+
+        else:
+
+            method_name = 'catalog_category.tree'
+
+        return self.call(method_name, [parent_id, store_view])
 
     def level(self, website=None, store_view=None, parent_category=None):
         """
@@ -47,8 +65,17 @@ class Category(API):
         :param parent_category: Parent Category ID
         :return: Dictionary
         """
+
+        if self.version >= '2':
+
+            method_name = ''
+
+        else:
+
+            method_name = 'catalog_category.level'
+
         return self.call(
-            'catalog_category.level', [website, store_view, parent_category]
+            method_name, [website, store_view, parent_category]
         )
 
     def info(self, category_id, store_view=None, attributes=None):

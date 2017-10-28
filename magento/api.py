@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-'''
+"""
     magento.api
 
     Generic API for magento
 
     :license: BSD, see LICENSE for more details
-'''
+"""
 import sys
 from threading import RLock
 
